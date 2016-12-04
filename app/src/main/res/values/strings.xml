@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">DuiTang</string>
+    <string name="app_name">堆糖</string>
+    <string name="server_error">服务器异常</string>
+    <string name="data_empty">返回数据为空</string>
+    <string name="time_out">网络连接超时,请稍后重试!</string>
+    <string name="data_press_error">数据解析异常,请检查网络!</string>
+    <string name="net_error">网络异常,请稍后重试!</string>
 </resources>
