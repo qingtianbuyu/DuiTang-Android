@@ -1,26 +1,44 @@
 package com.duitang.ui;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
-import android.widget.GridView;
 
 import com.duitang.R;
+import com.duitang.base.BaseActivity;
 import com.duitang.base.BaseFragment;
+import com.duitang.entity.TabEntity;
+import com.duitang.ui.main.DiscoverFragment;
 import com.duitang.ui.main.HomeFragment;
+import com.duitang.ui.main.MeFragment;
+import com.duitang.ui.main.ShopFragment;
+import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.fl_container)
     FrameLayout flContainer;
-    @BindView(R.id.gv_nav)
-    GridView gvNav;
+    @BindView(R.id.tl_2)
+    CommonTabLayout mTabLayout_3;
+
+    private ArrayList<Fragment> mFragments2 = new ArrayList<>();
+    private String[] mTitles = {"首页", "消息", "联系人", "更多"};
+    private int[] mIconUnselectIds = {
+            R.mipmap.tabbar_home, R.mipmap.tabbar_discover,
+            R.mipmap.tabbar_shop, R.mipmap.tabbar_me};
+    private int[] mIconSelectIds = {
+            R.mipmap.tabbar_home_h, R.mipmap.tabbar_discover_h,
+            R.mipmap.tabbar_shop_h, R.mipmap.tabbar_me_h};
+    private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,32 +49,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initView() {
-        switchTab(HomeFragment.class.getName());
+        mFragments2.add(HomeFragment.newInstance());
+        mFragments2.add(DiscoverFragment.newInstance());
+        mFragments2.add(ShopFragment.newInstance());
+        mFragments2.add(MeFragment.newInstance());
+        for (int i = 0; i < mTitles.length; i++) {
+            mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
+        }
+        mTabLayout_3.setTabData(mTabEntities, this, R.id.fl_container, mFragments2);
+        mTabLayout_3.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+
+            }
+        });
     }
 
-    public void switchTab(String tag) {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if (fragment == null) {
-            BaseFragment fragmentWithName = getFragmentWithName(tag);
-            fragmentTransaction.add(R.id.fl_container, fragmentWithName, tag);
-        } else {
-            fragmentTransaction.show(fragment);
-        }
-        fragmentTransaction.commit();
-    }
-
-    public BaseFragment getFragmentWithName(String name) {
-        try {
-            Class<?> aClass = Class.forName(name);
-            return (BaseFragment) aClass.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

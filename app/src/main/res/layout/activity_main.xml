@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -12,12 +13,15 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <GridView
-        android:id="@+id/gv_nav"
+    <com.flyco.tablayout.CommonTabLayout
+        android:id="@+id/tl_2"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:horizontalSpacing="0dp"
-        android:numColumns="4"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="0dp" />
+        android:layout_height="54dp"
+        android:background="#ffffff"
+        tl:tl_iconHeight="23dp"
+        tl:tl_iconWidth="23dp"
+        tl:tl_textSelectColor="@color/commonColor"
+        tl:tl_textUnselectColor="@color/grayColor"
+        tl:tl_textsize="12sp" />
+
 </LinearLayout>
