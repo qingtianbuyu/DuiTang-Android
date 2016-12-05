@@ -14,13 +14,18 @@ import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersisto
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
+import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,12 +49,44 @@ public class RetrofitUtil {
         if (retrofit == null) {
             ClearableCookieJar cookieJar =
                     new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(DTApplication.getInstance()));
+
+            Interceptor interceptor = new Interceptor() {
+                @Override
+                public okhttp3.Response intercept(Chain chain) throws IOException {
+                    Request original = chain.request();
+                    HttpUrl originalHttpUrl = original.url();
+
+                    HttpUrl url = originalHttpUrl.newBuilder()
+                            .addQueryParameter("platform_name", "iOS")
+                            .addQueryParameter("__domain", "www.duitang.com")
+                            .addQueryParameter("app_version", "6.5.0 rv:172349")
+                            .addQueryParameter("device_platform", "iPhone8%2C1")
+                            .addQueryParameter("app_code", "gandalf")
+                            .addQueryParameter("locale","zh_CN")
+                            .addQueryParameter("platform_version","10.11.1")
+
+                            .build();
+
+                    // Request customization: add request headers
+                    Request.Builder requestBuilder = original.newBuilder()
+                            .url(url);
+
+                    Request request = requestBuilder.build();
+                    return chain.proceed(request);
+                }
+            };
+
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
             OkHttpClient client = new OkHttpClient.Builder()
                     .retryOnConnectionFailure(false)
                     .readTimeout(10, TimeUnit.SECONDS)
                     .writeTimeout(10, TimeUnit.SECONDS)
                     .connectTimeout(10, TimeUnit.SECONDS)
                     .cookieJar(cookieJar)
+                    .addInterceptor(logging)
+                    .addInterceptor(interceptor)
                     .build();
 
             retrofit = new Retrofit

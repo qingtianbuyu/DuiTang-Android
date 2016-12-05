@@ -14,4 +14,8 @@ public class AppConst {
         String Small = "small";
         int SmallType = 2;
     }
+
+    public interface Album {
+        String includeFieleds = "id,name,desc,user,like_count,like_id,count,covers,managers,members,member_count,category,share_links_3";
+    }
 }

@@ -1,5 +1,7 @@
 package com.duitang.base;
 
+import com.duitang.entity.Album;
+import com.duitang.entity.AlbumData;
 import com.duitang.entity.Topic;
 
 import retrofit2.Call;
@@ -16,6 +18,12 @@ import retrofit2.http.Query;
  */
 public interface ApiService {
 
-    @GET("ad/banner/list/?platform_name=iOS&query_type=normal&__domain=www.duitang.com&app_version=6.5.0%20rv%3A172349&device_platform=iPhone8%2C1&locale=zh_CN&app_code=gandalf&platform_version=10.1.1&screen_height=667&device_name=Unknown%20iPhone&limit=0&ad_id=IGA009&screen_width=375")
+    @GET("ad/banner/list/?query_type=normal&limit=0&ad_id=IGA009")
     Call<BaseResult<ObjectList<Topic>>> loadTopics(@Query("start") int start);
+
+    @GET("album/detail/")
+    Call<BaseResult<Album>> listAlbumDetail(@Query("album_id") String albumId, @Query("include_fields") String include_fields);
+
+    @GET("blog/list/by_album/")
+    Call<BaseResult<ObjectList<AlbumData>>> listAlbumList(@Query("album_id")String albumId,@Query("user_id")  int userId);
 }

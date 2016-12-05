@@ -16,7 +16,7 @@ import com.duitang.base.BaseListFragment;
 import com.duitang.base.ObjectList;
 import com.duitang.entity.Topic;
 import com.duitang.http.HomeHttp;
-import com.duitang.ui.home.TopicDetailActivity;
+import com.duitang.ui.home.AlbumDetailActivity;
 import com.duitang.util.RetrofitUtil;
 import com.duitang.view.refresh.OnRecyclerItemClickListener;
 
@@ -64,6 +64,12 @@ public class HomeFragment extends BaseListFragment {
         ButterKnife.bind(this, view);
         initView(view);
         imgbtnLeft.setVisibility(View.GONE);
+        swipeToLoadLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeToLoadLayout.setRefreshing(true);
+            }
+        });
     }
 
     public void initView(View view) {
@@ -76,22 +82,11 @@ public class HomeFragment extends BaseListFragment {
             @Override
             public void onItemClick(RecyclerView.ViewHolder vh) {
                 super.onItemClick(vh);
-                Intent intent = new Intent(getContext(), TopicDetailActivity.class);
+                Intent intent = new Intent(getContext(), AlbumDetailActivity.class);
                 int layoutPosition = vh.getLayoutPosition();
                 Topic topic = topicList.get(layoutPosition);
                 intent.putExtra("topic", topic);
                 startActivity(intent);
-            }
-        });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        swipeToLoadLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeToLoadLayout.setRefreshing(true);
             }
         });
     }

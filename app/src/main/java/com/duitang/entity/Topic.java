@@ -13,7 +13,7 @@ import java.util.Locale;
  * author: yking
  * created on: 2016/12/4 下午1:48
  */
-public class Topic implements Serializable{
+public class Topic implements Serializable {
 
     /**
      * target : https://www.duitang.com/guide2/mkt/hws30/?__urlopentype=pageweb&app_version=6.5.0&app_code=gandalf
@@ -193,12 +193,12 @@ public class Topic implements Serializable{
         this.content_category = content_category;
     }
 
-//    public String getEnabled_at() {
-//        SimpleDateFormat DEFAULT_SDF = new SimpleDateFormat("EEE, d MMM yyyy", Locale.getDefault());
-//        return TimeUtils.milliseconds2String(enabled_at, DEFAULT_SDF);
-//    }
-//
-//    public void setEnabled_at(long enabled_at) {
-//        this.enabled_at = enabled_at;
-//    }
+    public String getTargetId() {
+        try {
+            return target.substring(target.lastIndexOf("=") + 1, target.length());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 }

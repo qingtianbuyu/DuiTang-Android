@@ -1,10 +1,15 @@
 package com.duitang.http;
 
 import com.duitang.base.ApiService;
+import com.duitang.base.AppConst;
 import com.duitang.base.BaseResult;
 import com.duitang.base.ObjectList;
+import com.duitang.entity.Album;
+import com.duitang.entity.AlbumData;
 import com.duitang.entity.Topic;
 import com.duitang.util.RetrofitUtil;
+
+import java.util.List;
 
 import retrofit2.Call;
 
@@ -19,6 +24,18 @@ public class HomeHttp {
     public static void loadBannerList(int start, RetrofitUtil.RequestCallBack<ObjectList<Topic>> callBack) {
         ApiService service = RetrofitUtil.createService();
         Call<BaseResult<ObjectList<Topic>>> call = service.loadTopics(start);
+        RetrofitUtil.request(call, callBack);
+    }
+
+    public static void listAlbumDetail(String albumId, RetrofitUtil.RequestCallBack<Album> callBack) {
+        ApiService service = RetrofitUtil.createService();
+        Call<BaseResult<Album>> call = service.listAlbumDetail(albumId, AppConst.Album.includeFieleds);
+        RetrofitUtil.request(call, callBack);
+    }
+
+    public static void listAlbumList(String targetId, int userId, RetrofitUtil.RequestCallBack<ObjectList<AlbumData>> callBack) {
+        ApiService service = RetrofitUtil.createService();
+        Call<BaseResult<ObjectList<AlbumData>>> call = service.listAlbumList(targetId, userId);
         RetrofitUtil.request(call, callBack);
     }
 }
