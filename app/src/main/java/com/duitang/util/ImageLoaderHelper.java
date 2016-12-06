@@ -36,6 +36,13 @@ public class ImageLoaderHelper {
         Glide.with(mContext).load(path).into(mImageView);
     }
 
+    public static void loadImageViewWithCircle(Context mContext, String path, ImageView mImageView) {
+        Glide.with(mContext)
+                .load(path)
+                .transform(new GlideCircleTransform(mContext))
+                .into(mImageView);
+    }
+
     public interface SimpleLoadImageListener {
 
         void onLoadingStarted(String imageUri, View view);

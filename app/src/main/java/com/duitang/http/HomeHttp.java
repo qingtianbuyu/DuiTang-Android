@@ -9,8 +9,6 @@ import com.duitang.entity.AlbumData;
 import com.duitang.entity.Topic;
 import com.duitang.util.RetrofitUtil;
 
-import java.util.List;
-
 import retrofit2.Call;
 
 /**
@@ -29,7 +27,7 @@ public class HomeHttp {
 
     public static void listAlbumDetail(String albumId, RetrofitUtil.RequestCallBack<Album> callBack) {
         ApiService service = RetrofitUtil.createService();
-        Call<BaseResult<Album>> call = service.listAlbumDetail(albumId, AppConst.Album.includeFieleds);
+        Call<BaseResult<Album>> call = service.listAlbumDetail(albumId, AppConst.AlbumConst.includeFieleds);
         RetrofitUtil.request(call, callBack);
     }
 

@@ -8,6 +8,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.SizeUtils;
 import com.duitang.R;
 import com.duitang.base.BaseActivity;
 import com.duitang.base.ObjectList;
@@ -16,6 +17,7 @@ import com.duitang.entity.AlbumData;
 import com.duitang.entity.Topic;
 import com.duitang.http.HomeHttp;
 import com.duitang.util.RetrofitUtil;
+import com.duitang.view.refresh.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +55,7 @@ public class AlbumDetailActivity extends BaseActivity {
     }
 
     public void initView() {
+        imgbtnRight.setImageResource(R.mipmap.nav_more);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
@@ -63,7 +66,7 @@ public class AlbumDetailActivity extends BaseActivity {
             @Override
             public void success(Album data) {
                 album = data;
-                initAdapter();
+//                initAdapter();
                 listAlbumList(data.getUser().getId());
             }
 
@@ -99,7 +102,9 @@ public class AlbumDetailActivity extends BaseActivity {
         if (adapter == null) {
             adapter = new AlbumDetailAdapter(albumDatas);
             adapter.setAlbum(album);
+            recyclerView.setAdapter(adapter);
         } else {
+            adapter.setAlbum(album);
             adapter.notifyDataSetChanged();
         }
     }

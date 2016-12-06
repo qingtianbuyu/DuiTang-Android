@@ -15,7 +15,12 @@ public class AppConst {
         int SmallType = 2;
     }
 
-    public interface Album {
+    public interface AlbumConst {
         String includeFieleds = "id,name,desc,user,like_count,like_id,count,covers,managers,members,member_count,category,share_links_3";
+    }
+
+    public interface AlbumDetailAdapterConst {
+        int ItemTypeHeader = 0;
+        int ItemTypeContent = 1;
     }
 }
