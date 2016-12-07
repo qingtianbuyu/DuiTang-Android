@@ -31,9 +31,15 @@ public class HomeHttp {
         RetrofitUtil.request(call, callBack);
     }
 
-    public static void listAlbumList(String targetId, int userId, RetrofitUtil.RequestCallBack<ObjectList<AlbumData>> callBack) {
+    public static void listAlbumList(String targetId, int userId, int start, RetrofitUtil.RequestCallBack<ObjectList<AlbumData>> callBack) {
         ApiService service = RetrofitUtil.createService();
-        Call<BaseResult<ObjectList<AlbumData>>> call = service.listAlbumList(targetId, userId);
+        Call<BaseResult<ObjectList<AlbumData>>> call = service.listAlbumList(targetId, userId, start);
+        RetrofitUtil.request(call, callBack);
+    }
+
+    public static void loadArticle(String articleId, RetrofitUtil.RequestCallBack<AlbumData> callBack) {
+        ApiService service = RetrofitUtil.createService();
+        Call<BaseResult<AlbumData>> call = service.loadArticle(articleId);
         RetrofitUtil.request(call, callBack);
     }
 }

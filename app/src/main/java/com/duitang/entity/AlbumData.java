@@ -47,6 +47,7 @@ public class AlbumData {
     private int favorite_count;
     private String extra_type;
     private boolean is_certify_user;
+    private String url;
 
     public Album getAlbum() {
         return album;
@@ -184,4 +185,15 @@ public class AlbumData {
         this.is_certify_user = is_certify_user;
     }
 
+    public boolean is_certify_user() {
+        return is_certify_user;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

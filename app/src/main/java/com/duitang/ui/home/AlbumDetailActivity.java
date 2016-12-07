@@ -5,9 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
+import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.blankj.utilcode.utils.SizeUtils;
 import com.duitang.R;
 import com.duitang.base.BaseActivity;
@@ -31,19 +35,24 @@ import butterknife.ButterKnife;
  * author: yking
  * created on: 2016/12/4 下午11:05
  */
-public class AlbumDetailActivity extends BaseActivity {
+public class AlbumDetailActivity extends BaseActivity implements OnRefreshListener, OnLoadMoreListener {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.imgbtn_right)
     ImageButton imgbtnRight;
-    @BindView(R.id.recycler)
+    @BindView(R.id.swipe_target)
     RecyclerView recyclerView;
+    @BindView(R.id.swipeToLoadLayout)
+    SwipeToLoadLayout swipeToLoadLayout;
 
     AlbumDetailAdapter adapter;
+    List<AlbumData> albumDatas = new ArrayList<>();
+
     Topic topic;
     Album album;
-    List<AlbumData> albumDatas = new ArrayList<>();
+    int userId;
+    int start;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +64,8 @@ public class AlbumDetailActivity extends BaseActivity {
     }
 
     public void initView() {
+        swipeToLoadLayout.setOnLoadMoreListener(this);
+        swipeToLoadLayout.setOnRefreshListener(this);
         imgbtnRight.setImageResource(R.mipmap.nav_more);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -67,7 +78,8 @@ public class AlbumDetailActivity extends BaseActivity {
             public void success(Album data) {
                 album = data;
 //                initAdapter();
-                listAlbumList(data.getUser().getId());
+                userId = data.getUser().getId();
+                listAlbumList();
             }
 
             @Override
@@ -77,22 +89,36 @@ public class AlbumDetailActivity extends BaseActivity {
         });
     }
 
-    public void listAlbumList(int userId) {
-        HomeHttp.listAlbumList(topic.getTargetId(), userId, new RetrofitUtil.RequestCallBack<ObjectList<AlbumData>>() {
+    public void listAlbumList() {
+        HomeHttp.listAlbumList(topic.getTargetId(), userId, start, new RetrofitUtil.RequestCallBack<ObjectList<AlbumData>>() {
 
             @Override
             public void success(ObjectList data) {
+                start = data.next_start;
                 // 刷新recyclerView
-                albumDatas.clear();
+                if (swipeToLoadLayout.isRefreshing()) {
+                    albumDatas.clear();
+                }
                 if (data.object_list != null) {
                     albumDatas.addAll(data.object_list);
                 }
+                boolean loadMoreEnabled = data.more == 1;
+                if (loadMoreEnabled) {
+                    swipeToLoadLayout.setLoadMoreEnabled(loadMoreEnabled);
+                }
+
                 initAdapter();
+                restoreRefreshState();
             }
 
             @Override
             public void failure(String failure) {
-
+                if (swipeToLoadLayout.isRefreshing()) {
+                    albumDatas.clear();
+                    start = 1;
+                }
+                initAdapter();
+                restoreRefreshState();
             }
         });
     }
@@ -106,6 +132,33 @@ public class AlbumDetailActivity extends BaseActivity {
         } else {
             adapter.setAlbum(album);
             adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        listAlbumList();
+    }
+
+    @Override
+    public void onLoadMore() {
+        listAlbumList();
+    }
+
+    /**
+     * 退出刷新状态
+     */
+    public void restoreRefreshState() {
+        if (swipeToLoadLayout == null) {
+            Log.e("INITAL_ERROR", "swipeToLoadLayout initial failed");
+            return;
+        }
+
+        if (swipeToLoadLayout.isRefreshing()) {
+            swipeToLoadLayout.setRefreshing(false);
+        }
+        if (swipeToLoadLayout.isLoadingMore()) {
+            swipeToLoadLayout.setLoadingMore(false);
         }
     }
 }

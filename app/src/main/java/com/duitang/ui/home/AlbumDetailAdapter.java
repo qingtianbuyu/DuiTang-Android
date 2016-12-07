@@ -3,6 +3,7 @@ package com.duitang.ui.home;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.duitang.entity.AlbumData;
 import com.duitang.util.ImageLoaderHelper;
 
 import java.util.List;
+import java.util.WeakHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +36,6 @@ public class AlbumDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private List<AlbumData> dataList;
     private Album album;
-
 
     public AlbumDetailAdapter(List<AlbumData> dataList) {
         this.dataList = dataList;
@@ -66,6 +67,14 @@ public class AlbumDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ContentViewHolder cholder = (ContentViewHolder) holder;
             int layoutPosition = holder.getLayoutPosition() - 1;
             AlbumData albumData = dataList.get(layoutPosition);
+            calculateLayoutParams(cholder, layoutPosition, albumData);
+            ImageLoaderHelper.loadImageView(((ContentViewHolder) holder).ivPhoto.getContext(), albumData.getPhoto().getPath(), ((ContentViewHolder) holder).ivPhoto);
+            cholder.tvLikeCount.setText(albumData.getLike_count() + "");
+            cholder.tvMsg.setText(albumData.getMsg());
+        }
+    }
+
+    private void calculateLayoutParams(ContentViewHolder cholder, int layoutPosition, AlbumData albumData) {
             // get width height in px
             int width = albumData.getPhoto().getWidth();
             int height = albumData.getPhoto().getHeight();
@@ -77,7 +86,6 @@ public class AlbumDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             float itemHeight = height * (itemWith / width);
             layoutParams.width = (int) itemWith;
             layoutParams.height = (int) itemHeight;
-            cholder.ivPhoto.setLayoutParams(layoutParams);
             LinearLayout.LayoutParams containerLp = (LinearLayout.LayoutParams) cholder.llContainer.getLayoutParams();
             containerLp.width = (int) itemWith;
             if (layoutPosition % 2 == 0) {
@@ -85,13 +93,7 @@ public class AlbumDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             } else {
                 containerLp.leftMargin = margin / 2;
             }
-
             containerLp.topMargin = margin;
-
-            ImageLoaderHelper.loadImageView(((ContentViewHolder) holder).ivPhoto.getContext(), albumData.getPhoto().getPath(), ((ContentViewHolder) holder).ivPhoto);
-            cholder.tvLikeCount.setText(albumData.getLike_count() + "");
-            cholder.tvMsg.setText(albumData.getMsg());
-        }
     }
 
     @Override

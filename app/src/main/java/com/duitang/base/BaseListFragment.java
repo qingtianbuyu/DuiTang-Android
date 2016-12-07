@@ -38,7 +38,8 @@ public class BaseListFragment extends BaseFragment implements OnRefreshListener,
 
         if (swipeToLoadLayout.isRefreshing()) {
             swipeToLoadLayout.setRefreshing(false);
-        } else if (swipeToLoadLayout.isLoadingMore()) {
+        }
+        if (swipeToLoadLayout.isLoadingMore()) {
             swipeToLoadLayout.setLoadingMore(false);
         }
     }

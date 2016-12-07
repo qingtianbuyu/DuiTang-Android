@@ -17,6 +17,7 @@ import com.duitang.base.ObjectList;
 import com.duitang.entity.Topic;
 import com.duitang.http.HomeHttp;
 import com.duitang.ui.home.AlbumDetailActivity;
+import com.duitang.ui.home.ArticleDetailActivity;
 import com.duitang.util.RetrofitUtil;
 import com.duitang.view.refresh.OnRecyclerItemClickListener;
 
@@ -82,11 +83,17 @@ public class HomeFragment extends BaseListFragment {
             @Override
             public void onItemClick(RecyclerView.ViewHolder vh) {
                 super.onItemClick(vh);
-                Intent intent = new Intent(getContext(), AlbumDetailActivity.class);
                 int layoutPosition = vh.getLayoutPosition();
                 Topic topic = topicList.get(layoutPosition);
-                intent.putExtra("topic", topic);
-                startActivity(intent);
+                if (topic.getContent_type().equals("pgc")) {
+                    Intent intent = new Intent(getContext(), ArticleDetailActivity.class);
+                    intent.putExtra("topic", topic);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getContext(), AlbumDetailActivity.class);
+                    intent.putExtra("topic", topic);
+                    startActivity(intent);
+                }
             }
         });
     }

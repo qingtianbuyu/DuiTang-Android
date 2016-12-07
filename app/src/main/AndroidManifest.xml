@@ -34,6 +34,7 @@
         <activity
             android:name=".ui.home.AlbumDetailActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.home.ArticleDetailActivity"/>
     </application>
 
 </manifest>

@@ -25,5 +25,9 @@ public interface ApiService {
     Call<BaseResult<Album>> listAlbumDetail(@Query("album_id") String albumId, @Query("include_fields") String include_fields);
 
     @GET("blog/list/by_album/")
-    Call<BaseResult<ObjectList<AlbumData>>> listAlbumList(@Query("album_id")String albumId,@Query("user_id")  int userId);
+    Call<BaseResult<ObjectList<AlbumData>>> listAlbumList(@Query("album_id") String albumId, @Query("user_id") int userId, @Query("start") int start);
+
+    @GET("article/detail/")
+    Call<BaseResult<AlbumData>> loadArticle(@Query("article_id")String articleId);
+
 }
