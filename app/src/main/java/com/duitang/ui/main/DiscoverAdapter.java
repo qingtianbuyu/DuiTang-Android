@@ -63,13 +63,13 @@ public class DiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (itemViewType == TYPE_ITEM) {
             int layoutPosition = holder.getLayoutPosition();
             //计算当前处于那个Section
-            int groupPosition = getGroupPosition(layoutPosition);
-            int itemPosition = getChildPosition(layoutPosition);
+//            int groupPosition = getGroupPosition(layoutPosition);
+//            int itemPosition = getChildPosition(layoutPosition);
             ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
-            ContentGroupItem contentGroupItem = dataListCp.get(groupPosition);
+            ContentGroupItem contentGroupItem = dataListCp.get(layoutPosition);
             contentViewHolder.tvName.setText(contentGroupItem.getName());
             ImageLoaderHelper.loadImageView(contentViewHolder.tvName.getContext(), contentGroupItem.getIcon_url(), contentViewHolder.iv);
-            Log.d("TAG", position+"----");
+            Log.d("TAG", position + "----");
         }
     }
 
@@ -98,9 +98,9 @@ public class DiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return TYPE_HEADER;
         } else if (groupPositions.contains(position)) {
             return TYPE_SEACTION;
+        } else {
+            return TYPE_ITEM;
         }
-
-        return TYPE_ITEM;
     }
 
     @Override
@@ -151,6 +151,9 @@ public class DiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ContentGroup contentGroup = dataList.get(i);
             if (!contentGroup.getGroup_id().contains("category")) {
                 continue;
+            }
+            if (groupPosition == 0) {
+                dataListCp.add(new ContentGroupItem());
             }
             groupPosition += (getChildCount(i) + 1);
             groupPositions.add(groupPosition);
