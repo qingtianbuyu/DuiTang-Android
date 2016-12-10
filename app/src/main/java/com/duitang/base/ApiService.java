@@ -2,7 +2,10 @@ package com.duitang.base;
 
 import com.duitang.entity.Album;
 import com.duitang.entity.AlbumData;
+import com.duitang.entity.ContentGroup;
 import com.duitang.entity.Topic;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -29,5 +32,8 @@ public interface ApiService {
 
     @GET("article/detail/")
     Call<BaseResult<AlbumData>> loadArticle(@Query("article_id")String articleId);
+
+    @GET("index/groups/")
+    Call<BaseResult<List<ContentGroup>>> loadContentList();
 
 }

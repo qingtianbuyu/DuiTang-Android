@@ -85,7 +85,7 @@ public class HomeFragment extends BaseListFragment {
                 super.onItemClick(vh);
                 int layoutPosition = vh.getLayoutPosition();
                 Topic topic = topicList.get(layoutPosition);
-                if (topic.getContent_type().equals("pgc")) {
+                if (topic.getContent_type().equals("pgc")||topic.getContent_type().equals("store")) {
                     Intent intent = new Intent(getContext(), ArticleDetailActivity.class);
                     intent.putExtra("topic", topic);
                     startActivity(intent);

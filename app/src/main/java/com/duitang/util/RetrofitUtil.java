@@ -131,6 +131,7 @@ public class RetrofitUtil {
 
             @Override
             public void onFailure(Call<BaseResult<T>> call, Throwable t) {
+                t.printStackTrace();
                 callBack.failure("");
                 if (t instanceof ConnectException) {
                     ToastUtils.showMiddleToast(ResourcesUtil.getString(context, R.string.net_error));
