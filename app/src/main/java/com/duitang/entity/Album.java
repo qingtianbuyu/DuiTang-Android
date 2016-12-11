@@ -12,13 +12,13 @@ public class Album {
 
     /**
      * id : 64760088
-     * name : 卧蚕儿
+     * text : 卧蚕儿
      * desc :
      * count : 23
      * category : 0
      * covers : ["http://img3.duitang.com/uploads/item/201412/15/20141215200427_SCRKx.jpeg"]
      * user : {"id":4340303,"username":"BalalaPure","avatar":"https://a-ssl.duitang.com/uploads/people/201409/09/20140909232152_aBZzA.jpeg","identity":["personal_certify"],"is_certify_user":true}
-     * tags : [{"id":6005980,"name":"人物","target":"","type":1,"tag_id":12779},{"id":6005981,"name":"100%PURE","target":"","type":1,"tag_id":447689},{"id":6005982,"name":"摄影","target":"","type":1,"tag_id":2240},{"id":6895590,"name":"精选专辑","target":"","type":2,"tag_id":500635},{"id":6895591,"name":"美图摄影","target":"","type":2,"tag_id":492853}]
+     * tags : [{"id":6005980,"text":"人物","target":"","type":1,"tag_id":12779},{"id":6005981,"text":"100%PURE","target":"","type":1,"tag_id":447689},{"id":6005982,"text":"摄影","target":"","type":1,"tag_id":2240},{"id":6895590,"text":"精选专辑","target":"","type":2,"tag_id":500635},{"id":6895591,"text":"美图摄影","target":"","type":2,"tag_id":492853}]
      * status : 0
      * like_id : 0
      * like_count : 351

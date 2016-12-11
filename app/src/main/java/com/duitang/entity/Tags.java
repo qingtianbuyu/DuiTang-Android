@@ -9,7 +9,7 @@ package com.duitang.entity;
 public class Tags {
     /**
      * id : 6005980
-     * name : 人物
+     * text : 人物
      * target :
      * type : 1
      * tag_id : 12779

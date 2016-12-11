@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity {
     CommonTabLayout mTabLayout_3;
 
     private ArrayList<Fragment> mFragments2 = new ArrayList<>();
-    private String[] mTitles = {"首页", "消息", "联系人", "更多"};
+    private String[] mTitles = {"首页", "发现", "商店", "我"};
     private int[] mIconUnselectIds = {
             R.mipmap.tabbar_home, R.mipmap.tabbar_discover,
             R.mipmap.tabbar_shop, R.mipmap.tabbar_me};

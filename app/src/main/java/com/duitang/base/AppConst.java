@@ -16,7 +16,7 @@ public class AppConst {
     }
 
     public interface AlbumConst {
-        String includeFieleds = "id,name,desc,user,like_count,like_id,count,covers,managers,members,member_count,category,share_links_3";
+        String includeFieleds = "id,text,desc,user,like_count,like_id,count,covers,managers,members,member_count,category,share_links_3";
     }
 
     public interface AlbumDetailAdapterConst {

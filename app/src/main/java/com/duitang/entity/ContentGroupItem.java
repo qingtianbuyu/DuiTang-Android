@@ -9,7 +9,7 @@ package com.duitang.entity;
 public class ContentGroupItem {
     /**
      * icon_url : http://img4q.duitang.com/uploads/people/201610/12/20161012174211_u8HBs.jpeg
-     * name : 今日TOP榜
+     * text : 今日TOP榜
      * target : duitang://www.duitang.com/theme/detail/?theme_id=554c8abaa310def67913c5c0&theme_alias=%E4%BB%8A%E6%97%A5TOP%E6%A6%9C&app_layout=BLOG_THEME
      */
 

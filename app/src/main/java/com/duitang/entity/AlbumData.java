@@ -11,7 +11,7 @@ import java.util.List;
 public class AlbumData {
 
     /**
-     * album : {"id":64760088,"name":"卧蚕儿","count":23,"category":0,"covers":["http://img3.duitang.com/uploads/item/201412/15/20141215200427_SCRKx.jpeg"],"status":0,"like_count":319,"actived_at":0,"favorite_count":369,"favorite_id":0}
+     * album : {"id":64760088,"text":"卧蚕儿","count":23,"category":0,"covers":["http://img3.duitang.com/uploads/item/201412/15/20141215200427_SCRKx.jpeg"],"status":0,"like_count":319,"actived_at":0,"favorite_count":369,"favorite_id":0}
      * photo : {"width":500,"height":500,"path":"https://b-ssl.duitang.com/uploads/item/201412/15/20141215200427_SCRKx.jpeg_webp"}
      * msg : weibo：http://weibo.com/balalapure
      * id : 263243066

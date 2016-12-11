@@ -1,10 +1,16 @@
 package com.duitang.view.refresh;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.duitang.R;
 
 /**
  * Title:
@@ -16,8 +22,10 @@ public class ListViewDecoration extends RecyclerView.ItemDecoration {
 
     private Drawable mDrawable;
 
-    public ListViewDecoration(Drawable drawable) {
-        mDrawable = drawable;
+    public ListViewDecoration(Context ctx) {
+        Resources res = ctx.getResources();
+        mDrawable = res.getDrawable(R.drawable.divider_recycler);
+        mDrawable.setAlpha(51);
     }
 
     @Override
