@@ -1,5 +1,7 @@
 package com.duitang.entity;
 
+import android.app.Activity;
+
 /**
  * Title:
  * description:
@@ -10,9 +12,13 @@ public class RecyclerMenuItem {
 
     public static final int KEY_BLANK_DIVER = 0;
     public static final int KEY_TYPE_NORMAL = 1;
+    public static final int KEY_TYPE_ORDER = 2;
+    public static final int KEY_TYPE_ICON = 3;
 
     public int resId;
     public String text;
+    public Class<? extends Activity> action;
+
     public boolean showArrow;
     public int type;
 

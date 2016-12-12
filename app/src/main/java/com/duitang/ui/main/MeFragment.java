@@ -1,5 +1,6 @@
 package com.duitang.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,8 +14,12 @@ import android.widget.TextView;
 import com.duitang.R;
 import com.duitang.base.BaseFragment;
 import com.duitang.base.DataFactory;
+import com.duitang.entity.RecyclerMenuItem;
 import com.duitang.view.menu.MenuStyleAdapter;
 import com.duitang.view.refresh.ListViewDecoration;
+import com.duitang.view.refresh.OnRecyclerItemClickListener;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,7 +61,7 @@ public class MeFragment extends BaseFragment {
         setupRecyclerView();
     }
 
-    public void initView(){
+    public void initView() {
         imgbtnLeft.setVisibility(View.GONE);
         imgbtnRight.setImageResource(R.mipmap.nav_icon_set);
         tvTitle.setText("我");
@@ -65,6 +70,17 @@ public class MeFragment extends BaseFragment {
     public void setupRecyclerView() {
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         recycler.addItemDecoration(new ListViewDecoration(getContext()));
-        recycler.setAdapter(new MenuStyleAdapter(DataFactory.getMeMenu()));
+        final List<RecyclerMenuItem> meMenu = DataFactory.getMeMenu();
+        MenuStyleAdapter adapter = new MenuStyleAdapter(meMenu);
+        recycler.setAdapter(adapter);
+        adapter.setOnItemClickListener(new MenuStyleAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                RecyclerMenuItem menuItem = meMenu.get(position);
+                if (menuItem.type == RecyclerMenuItem.KEY_TYPE_NORMAL && menuItem.action != null) {
+                    startActivity(new Intent(getContext(), menuItem.action));
+                }
+            }
+        });
     }
 }

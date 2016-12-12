@@ -16,7 +16,9 @@ public class DataFactory {
 
     public static List<RecyclerMenuItem> getMeMenu() {
         List<RecyclerMenuItem> menuItems = new ArrayList<>();
-        RecyclerMenuItem menuItem = new RecyclerMenuItem(R.mipmap.me_icon_order, "我的订单", RecyclerMenuItem.KEY_TYPE_NORMAL);
+        RecyclerMenuItem menuItem = new RecyclerMenuItem(R.mipmap.ic_launcher, "YKing3000", RecyclerMenuItem.KEY_TYPE_ICON);
+        menuItems.add(menuItem);
+        menuItem = new RecyclerMenuItem(R.mipmap.me_icon_order, "我的订单", RecyclerMenuItem.KEY_TYPE_ORDER);
         menuItems.add(menuItem);
         menuItem = new RecyclerMenuItem();
         menuItems.add(menuItem);

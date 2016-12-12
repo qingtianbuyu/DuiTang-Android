@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 
 /**
  * Title:
- * description:
+ * description: 数据接口SSL加密无法获取
  * author: yking
  * created on: 2016/12/4 上午10:04
  */

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Title:
@@ -14,7 +15,7 @@ import android.view.View;
  */
 public class OnRecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
     private GestureDetectorCompat mGestureDetector;
-    private RecyclerView          recyclerView;
+    private RecyclerView recyclerView;
 
     public OnRecyclerItemClickListener(RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
@@ -69,4 +70,5 @@ public class OnRecyclerItemClickListener implements RecyclerView.OnItemTouchList
 
     public void onBlankSpackClick() {
     }
+
 }

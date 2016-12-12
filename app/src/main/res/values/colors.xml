@@ -7,6 +7,7 @@
     <color name="commonColor">#EC5053</color>
     <color name="grayColor">#CDCDCD</color>
     <color name="titleColor">#333333</color>
+    <color name="subTitleColor">#666666</color>
 
 
 </resources>
