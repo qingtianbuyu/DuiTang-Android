@@ -4,6 +4,7 @@ import com.duitang.base.ApiService;
 import com.duitang.base.BaseResult;
 import com.duitang.base.ObjectList;
 import com.duitang.entity.ContentGroup;
+import com.duitang.entity.User;
 import com.duitang.util.RetrofitUtil;
 
 import java.util.List;
@@ -21,6 +22,17 @@ public class DiscoverHttp {
     public static void loadContentList(RetrofitUtil.RequestCallBack<List<ContentGroup>> callBack) {
         ApiService service = RetrofitUtil.createService();
         Call<BaseResult<List<ContentGroup>>> call = service.loadContentList();
+        RetrofitUtil.request(call, callBack);
+    }
+
+    /**
+     * 加载推荐人列表
+     *
+     * @param callBack
+     */
+    public static void loadRecommnadDaringList(RetrofitUtil.RequestCallBack<List<User>> callBack) {
+        ApiService service = RetrofitUtil.createService();
+        Call<BaseResult<List<User>>> call = service.loadRecommnadDaringList(12295222);
         RetrofitUtil.request(call, callBack);
     }
 }

@@ -4,6 +4,7 @@ import com.duitang.entity.Album;
 import com.duitang.entity.AlbumData;
 import com.duitang.entity.ContentGroup;
 import com.duitang.entity.Topic;
+import com.duitang.entity.User;
 
 import java.util.List;
 
@@ -31,9 +32,12 @@ public interface ApiService {
     Call<BaseResult<ObjectList<AlbumData>>> listAlbumList(@Query("album_id") String albumId, @Query("user_id") int userId, @Query("start") int start);
 
     @GET("article/detail/")
-    Call<BaseResult<AlbumData>> loadArticle(@Query("article_id")String articleId);
+    Call<BaseResult<AlbumData>> loadArticle(@Query("article_id") String articleId);
 
     @GET("index/groups/")
     Call<BaseResult<List<ContentGroup>>> loadContentList();
+
+    @GET("people/list/by_interest/")
+    Call<BaseResult<List<User>>> loadRecommnadDaringList(@Query("user_id") int userId);
 
 }

@@ -8,6 +8,7 @@
     <color name="grayColor">#CDCDCD</color>
     <color name="titleColor">#333333</color>
     <color name="subTitleColor">#666666</color>
+    <color name="main_bg_color">#f9f9f9</color>
 
 
 </resources>
