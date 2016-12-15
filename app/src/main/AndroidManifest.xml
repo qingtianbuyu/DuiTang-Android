@@ -34,7 +34,9 @@
         <activity
             android:name=".ui.home.AlbumDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.home.ArticleDetailActivity"/>
+        <activity android:name=".ui.home.ArticleDetailActivity" />
+        <activity android:name=".ui.discover.FollowTrendActivity" />
+        <activity android:name=".ui.discover.RecommandDaringActivity" />
     </application>
 
 </manifest>

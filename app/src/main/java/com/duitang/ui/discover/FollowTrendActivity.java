@@ -13,6 +13,7 @@ import com.duitang.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Title:关注动态
@@ -45,6 +46,7 @@ public class FollowTrendActivity extends BaseActivity {
         tvTitle.setText("关注动态");
     }
 
+    @OnClick(R.id.imgbtn_right)
     public void rightClick() {
         startActivity(new Intent(this, RecommandDaringActivity.class));
     }

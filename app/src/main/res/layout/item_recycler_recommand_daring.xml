@@ -2,25 +2,74 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/white"
     android:orientation="horizontal"
     android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/iv_avator"
-        android:layout_width="37dp"
-        android:layout_height="37dp" />
+    <RelativeLayout
+        android:layout_width="40dp"
+        android:layout_height="40dp">
+
+        <ImageView
+            android:id="@+id/iv_avator"
+            android:layout_width="37dp"
+            android:layout_height="37dp" />
+
+        <ImageView
+            android:id="@+id/iv_certificate"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_vip" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"></LinearLayout>
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="复古秘密"
+            android:textColor="#666"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="复古秘密"
+            android:textColor="#999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_identity_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="复古秘密"
+            android:textColor="#999"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
 
 
     <Button
+        android:id="@+id/btn_follow"
         android:layout_width="70dp"
         android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/selector_button_followed"
         android:text="关注"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
 
 
 </LinearLayout>

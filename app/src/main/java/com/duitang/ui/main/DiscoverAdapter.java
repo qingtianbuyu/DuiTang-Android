@@ -1,5 +1,6 @@
 package com.duitang.ui.main;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.duitang.R;
 import com.duitang.entity.ContentGroup;
 import com.duitang.entity.ContentGroupItem;
+import com.duitang.ui.discover.FollowTrendActivity;
 import com.duitang.util.ImageLoaderHelper;
 
 import java.util.ArrayList;
@@ -68,7 +70,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
             ContentGroupItem contentGroupItem = dataListCp.get(layoutPosition);
             contentViewHolder.tvName.setText(contentGroupItem.getName());
-            ImageLoaderHelper.loadImageView(contentViewHolder.tvName.getContext(), contentGroupItem.getIcon_url(), contentViewHolder.iv);
+            ImageLoaderHelper.loadImageView(contentGroupItem.getIcon_url(), contentViewHolder.iv);
             Log.d("TAG", position + "----");
         }
     }
@@ -182,7 +184,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     /**
      * 顶部viewHolder
      */
-    static class HeaderViewHolder extends RecyclerView.ViewHolder {
+    static class HeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.ll_container_item_left)
         LinearLayout llContainerItemLeft;
         @BindView(R.id.ll_container_item_right)
@@ -199,6 +201,12 @@ public class DiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         HeaderViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            llContainerItemLeft.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            view.getContext().startActivity(new Intent(view.getContext(), FollowTrendActivity.class));
         }
     }
 

@@ -53,13 +53,13 @@ public class TopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (itemViewType == AppConst.TopicConst.FirstType) {
             FirstViewHolder firstViewHolder = (FirstViewHolder) holder;
             Topic topic = topics.get(firstViewHolder.getLayoutPosition());
-            ImageLoaderHelper.loadImageView(firstViewHolder.imageView.getContext(), topic.getImage_url(), firstViewHolder.imageView);
+            ImageLoaderHelper.loadImageView(topic.getImage_url(), firstViewHolder.imageView);
             firstViewHolder.tvDescription.setText(topic.getDescription());
 
         } else if (itemViewType == AppConst.TopicConst.LargeType) {
             LargeViewHolder largeViewHolder = (LargeViewHolder) holder;
             Topic topic = topics.get(largeViewHolder.getLayoutPosition());
-            ImageLoaderHelper.loadImageView(largeViewHolder.imageView.getContext(), topic.getImage_url(), largeViewHolder.imageView);
+            ImageLoaderHelper.loadImageView(topic.getImage_url(), largeViewHolder.imageView);
             largeViewHolder.tvCategory.setText(topic.getContent_category());
             largeViewHolder.tvDescription.setText(topic.getDescription());
             largeViewHolder.tvNickname.setText(topic.getNickname());
@@ -67,7 +67,7 @@ public class TopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         } else {
             SmallViewHolder largeViewHolder = (SmallViewHolder) holder;
             Topic topic = topics.get(largeViewHolder.getLayoutPosition());
-            ImageLoaderHelper.loadImageView(largeViewHolder.imageView.getContext(), topic.getImage_url(), largeViewHolder.imageView);
+            ImageLoaderHelper.loadImageView(topic.getImage_url(), largeViewHolder.imageView);
             largeViewHolder.tvCategory.setText(topic.getContent_category());
             largeViewHolder.tvDescription.setText(topic.getDescription());
             largeViewHolder.tvNickname.setText(topic.getNickname());

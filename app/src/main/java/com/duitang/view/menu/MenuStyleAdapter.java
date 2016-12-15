@@ -84,7 +84,7 @@ public class MenuStyleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else if (itemViewType == RecyclerMenuItem.KEY_TYPE_ICON) {
             UserIconViewHolder simpleIconTextHolder = (UserIconViewHolder) holder;
             String logoUrl = "http://wx.qlogo.cn/mmopen/iaVibjjgfRjm07lQLbxHzkeXP45nJTECTiarLf8RP1tPDtDICnAdiclvcxgHOibxKdo4S3dGR90yeM3MFaMialsQSNU9vGzJickEhMj/0";
-            ImageLoaderHelper.loadImageViewWithCircle(simpleIconTextHolder.ivIcon.getContext(), logoUrl, simpleIconTextHolder.ivIcon);
+            ImageLoaderHelper.loadImageViewWithCircle(logoUrl, simpleIconTextHolder.ivIcon);
             simpleIconTextHolder.llRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

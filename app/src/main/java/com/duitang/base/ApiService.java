@@ -38,6 +38,6 @@ public interface ApiService {
     Call<BaseResult<List<ContentGroup>>> loadContentList();
 
     @GET("people/list/by_interest/")
-    Call<BaseResult<List<User>>> loadRecommnadDaringList(@Query("user_id") int userId);
+    Call<BaseResult<ObjectList<User>>> loadRecommnadDaringList(@Query("user_id") int userId);
 
 }

@@ -61,39 +61,39 @@ public class AlbumDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             headerViewHolder.tvTitle.setText(album.getName());
             headerViewHolder.tvAlbumCount.setText(album.getCount() + "张图片");
-            ImageLoaderHelper.loadImageViewWithCircle(((HeaderViewHolder) holder).tvAlbumCount.getContext(), album.getUser().getAvatar(), headerViewHolder.ivAvatar);
+            ImageLoaderHelper.loadImageViewWithCircle(album.getUser().getAvatar(), headerViewHolder.ivAvatar);
             headerViewHolder.tvAlbumName.setText(album.getUser().getUsername());
         } else {
             ContentViewHolder cholder = (ContentViewHolder) holder;
             int layoutPosition = holder.getLayoutPosition() - 1;
             AlbumData albumData = dataList.get(layoutPosition);
             calculateLayoutParams(cholder, layoutPosition, albumData);
-            ImageLoaderHelper.loadImageView(((ContentViewHolder) holder).ivPhoto.getContext(), albumData.getPhoto().getPath(), ((ContentViewHolder) holder).ivPhoto);
+            ImageLoaderHelper.loadImageView(albumData.getPhoto().getPath(), ((ContentViewHolder) holder).ivPhoto);
             cholder.tvLikeCount.setText(albumData.getLike_count() + "");
             cholder.tvMsg.setText(albumData.getMsg());
         }
     }
 
     private void calculateLayoutParams(ContentViewHolder cholder, int layoutPosition, AlbumData albumData) {
-            // get width height in px
-            int width = albumData.getPhoto().getWidth();
-            int height = albumData.getPhoto().getHeight();
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) cholder.ivPhoto.getLayoutParams();
-            Context context = cholder.ivPhoto.getContext();
-            int screenWidth = ScreenUtils.getScreenWidth(context);
-            int margin = SizeUtils.dp2px(context, 12);
-            float itemWith = (screenWidth - 3 * margin) * 0.5f;
-            float itemHeight = height * (itemWith / width);
-            layoutParams.width = (int) itemWith;
-            layoutParams.height = (int) itemHeight;
-            LinearLayout.LayoutParams containerLp = (LinearLayout.LayoutParams) cholder.llContainer.getLayoutParams();
-            containerLp.width = (int) itemWith;
-            if (layoutPosition % 2 == 0) {
-                containerLp.leftMargin = margin;
-            } else {
-                containerLp.leftMargin = margin / 2;
-            }
-            containerLp.topMargin = margin;
+        // get width height in px
+        int width = albumData.getPhoto().getWidth();
+        int height = albumData.getPhoto().getHeight();
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) cholder.ivPhoto.getLayoutParams();
+        Context context = cholder.ivPhoto.getContext();
+        int screenWidth = ScreenUtils.getScreenWidth(context);
+        int margin = SizeUtils.dp2px(context, 12);
+        float itemWith = (screenWidth - 3 * margin) * 0.5f;
+        float itemHeight = height * (itemWith / width);
+        layoutParams.width = (int) itemWith;
+        layoutParams.height = (int) itemHeight;
+        LinearLayout.LayoutParams containerLp = (LinearLayout.LayoutParams) cholder.llContainer.getLayoutParams();
+        containerLp.width = (int) itemWith;
+        if (layoutPosition % 2 == 0) {
+            containerLp.leftMargin = margin;
+        } else {
+            containerLp.leftMargin = margin / 2;
+        }
+        containerLp.topMargin = margin;
     }
 
     @Override

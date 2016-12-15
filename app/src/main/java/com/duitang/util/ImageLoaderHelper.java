@@ -32,17 +32,20 @@ public class ImageLoaderHelper {
 
     }
 
-    public static void loadImageView(Context mContext, String path, ImageView mImageView) {
-        Glide.with(mContext).load(path).into(mImageView);
+    public static void loadImageView(String path, ImageView mImageView) {
+        Glide.with(mImageView.getContext()).load(path).into(mImageView);
     }
 
-    public static void loadImageViewWithCircle(Context mContext, String path, ImageView mImageView) {
+    public static void loadImageViewWithCircle(String path, ImageView mImageView) {
+        Context mContext = mImageView.getContext();
         Glide.with(mContext)
                 .load(path)
                 .transform(new GlideCircleTransform(mContext))
                 .into(mImageView);
     }
-    public static void loadImageViewWithCircle(Context mContext, int path, ImageView mImageView) {
+
+    public static void loadImageViewWithCircle(int path, ImageView mImageView) {
+        Context mContext = mImageView.getContext();
         Glide.with(mContext)
                 .load(path)
                 .transform(new GlideCircleTransform(mContext))

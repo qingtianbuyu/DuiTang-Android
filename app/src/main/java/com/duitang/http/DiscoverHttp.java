@@ -30,9 +30,9 @@ public class DiscoverHttp {
      *
      * @param callBack
      */
-    public static void loadRecommnadDaringList(RetrofitUtil.RequestCallBack<List<User>> callBack) {
+    public static void loadRecommnadDaringList(RetrofitUtil.RequestCallBack<ObjectList<User>> callBack) {
         ApiService service = RetrofitUtil.createService();
-        Call<BaseResult<List<User>>> call = service.loadRecommnadDaringList(12295222);
+        Call<BaseResult<ObjectList<User>>> call = service.loadRecommnadDaringList(12295222);
         RetrofitUtil.request(call, callBack);
     }
 }
