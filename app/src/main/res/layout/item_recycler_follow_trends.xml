@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="37.5dp"
+            android:layout_height="37.5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/iv_avatar"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_avatar"
+            android:text="复古秘密"
+            android:textColor="@color/titleColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_add_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/iv_avatar"
+            android:layout_alignLeft="@id/tv_name"
+            android:text="10月30日 23：44"
+            android:textColor="@color/grayColor"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textSize="16sp"
+            tool:text="这些男女这些男女这些男女这些男女这些男女这些男女" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

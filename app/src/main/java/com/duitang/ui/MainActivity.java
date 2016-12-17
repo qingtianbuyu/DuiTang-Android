@@ -9,11 +9,14 @@ import android.widget.FrameLayout;
 import com.duitang.R;
 import com.duitang.base.BaseActivity;
 import com.duitang.base.BaseFragment;
+import com.duitang.entity.LoginResultEntity;
 import com.duitang.entity.TabEntity;
+import com.duitang.http.AccountHttp;
 import com.duitang.ui.main.DiscoverFragment;
 import com.duitang.ui.main.HomeFragment;
 import com.duitang.ui.main.MeFragment;
 import com.duitang.ui.main.ShopFragment;
+import com.duitang.util.RetrofitUtil;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -46,6 +49,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
+        login();
     }
 
     public void initView() {
@@ -64,6 +68,21 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onTabReselect(int position) {
+
+            }
+        });
+    }
+
+
+    private void login() {
+        AccountHttp.loginByAuthInfo(new RetrofitUtil.RequestCallBack<LoginResultEntity>() {
+            @Override
+            public void success(LoginResultEntity data) {
+
+            }
+
+            @Override
+            public void failure(String failure) {
 
             }
         });

@@ -3,7 +3,6 @@ package com.duitang.ui.discover;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -87,8 +86,7 @@ public class RecommandDaringActivity extends BaseActivity {
             adapter = new RecommandDaringAdapter(userList);
             recyclerView.setAdapter(adapter);
         } else {
-            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new UserCallback(userList, userList));
-            diffResult.dispatchUpdatesTo(adapter);
+            adapter.notifyDataSetChanged();
         }
     }
 

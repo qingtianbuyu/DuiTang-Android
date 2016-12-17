@@ -17,8 +17,14 @@ import com.google.gson.JsonParseException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -47,6 +53,7 @@ public class RetrofitUtil {
      */
     public synchronized static Retrofit getRetrofit() {
         if (retrofit == null) {
+            // TODO: 2016/12/17  此CookieJar每次请求之后都会清理一次,所以在有的接口需要用到登陆返回的Cookie时
             ClearableCookieJar cookieJar =
                     new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(DTApplication.getInstance()));
 
@@ -62,16 +69,20 @@ public class RetrofitUtil {
                             .addQueryParameter("app_version", "6.5.0 rv:172349")
                             .addQueryParameter("device_platform", "iPhone8%2C1")
                             .addQueryParameter("app_code", "gandalf")
-                            .addQueryParameter("locale","zh_CN")
-                            .addQueryParameter("platform_version","10.11.1")
-
+                            .addQueryParameter("locale", "zh_CN")
+                            .addQueryParameter("platform_version", "10.11.1")
                             .build();
 
                     // Request customization: add request headers
                     Request.Builder requestBuilder = original.newBuilder()
+                            .header("Cookie", "username=YKing3000;Path=/;Domain=.duitang.com;Expires=Sat, 31-Dec-2016 06:34:44 GMT")
+                            .header("Cookie", "sessionid=fe0c259c-2f03-485b-8e13-8c0ec3daa421;Path=/;Domain=.duitang.com;Expires=Sat, 31-Dec-2016 06:34:44 GMT")
+                            .header("Cookie", "_auth_user_id=12295222;Path=/;Domain=.duitang.com;Expires=Sat, 31-Dec-2016 06:34:44 GMT")
+                            .header("Cookie", "auth_token=c2201b1f-8ea9-451b-8179-141c0d04b008;Path=/;Domain=.duitang.com;Expires=Sun, 17-Dec-2017 06:34:44 GMT")
                             .url(url);
 
                     Request request = requestBuilder.build();
+
                     return chain.proceed(request);
                 }
             };
@@ -84,7 +95,6 @@ public class RetrofitUtil {
                     .readTimeout(10, TimeUnit.SECONDS)
                     .writeTimeout(10, TimeUnit.SECONDS)
                     .connectTimeout(10, TimeUnit.SECONDS)
-                    .cookieJar(cookieJar)
                     .addInterceptor(logging)
                     .addInterceptor(interceptor)
                     .build();

@@ -52,14 +52,4 @@ public class RecommandDaringAdapter extends BaseQuickAdapter<User, BaseViewHolde
         }
     }
 
-    @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position, List<Object> payloads) {
-        if (payloads == null || payloads.isEmpty()) {
-            onBindViewHolder(holder, position);
-        } else {
-            Bundle payload = (Bundle) payloads.get(0);
-            User user = mData.get(position);
-            setFollowButton(holder, user);
-        }
-    }
 }

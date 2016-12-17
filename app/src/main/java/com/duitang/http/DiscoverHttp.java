@@ -4,6 +4,7 @@ import com.duitang.base.ApiService;
 import com.duitang.base.BaseResult;
 import com.duitang.base.ObjectList;
 import com.duitang.entity.ContentGroup;
+import com.duitang.entity.Trend;
 import com.duitang.entity.User;
 import com.duitang.util.RetrofitUtil;
 
@@ -22,6 +23,12 @@ public class DiscoverHttp {
     public static void loadContentList(RetrofitUtil.RequestCallBack<List<ContentGroup>> callBack) {
         ApiService service = RetrofitUtil.createService();
         Call<BaseResult<List<ContentGroup>>> call = service.loadContentList();
+        RetrofitUtil.request(call, callBack);
+    }
+
+    public static void loadBroadcastList(int start, RetrofitUtil.RequestCallBack<ObjectList<Trend>> callBack) {
+        ApiService service = RetrofitUtil.createService();
+        Call<BaseResult<ObjectList<Trend>>> call = service.loadBroadcastList(start);
         RetrofitUtil.request(call, callBack);
     }
 

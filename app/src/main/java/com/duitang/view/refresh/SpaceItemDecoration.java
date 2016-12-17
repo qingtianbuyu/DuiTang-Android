@@ -10,7 +10,7 @@ import android.view.View;
  * author: yking
  * created on: 2016/12/6 下午9:52
  */
-public class SpaceItemDecoration extends RecyclerView.ItemDecoration{
+public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 
     private int space;
 
@@ -20,8 +20,12 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration{
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-
-        if(parent.getChildLayoutPosition(view) != 0)
-            outRect.top = space;
+        //不是第一个的格子都设一个左边和底部的间距
+//        outRect.left = space;
+        outRect.bottom = space;
+        //由于每行都只有3个，所以第一个都是3的倍数，把左边距设为0
+//        if (parent.getChildLayoutPosition(view) % 3 == 0) {
+//            outRect.left = 0;
+//        }
     }
 }

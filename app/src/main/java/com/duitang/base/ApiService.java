@@ -3,14 +3,19 @@ package com.duitang.base;
 import com.duitang.entity.Album;
 import com.duitang.entity.AlbumData;
 import com.duitang.entity.ContentGroup;
+import com.duitang.entity.LoginResultEntity;
 import com.duitang.entity.Topic;
+import com.duitang.entity.Trend;
 import com.duitang.entity.User;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -40,4 +45,10 @@ public interface ApiService {
     @GET("people/list/by_interest/")
     Call<BaseResult<ObjectList<User>>> loadRecommnadDaringList(@Query("user_id") int userId);
 
+    @GET("broadcast/list/v2/")
+    Call<BaseResult<ObjectList<Trend>>> loadBroadcastList(@Query("start") int start);
+
+    @FormUrlEncoded
+    @POST("login/by_auth_info/")
+    Call<BaseResult<LoginResultEntity>> loginByAuthInfo(@Field("access_token") String access_token, @Field("expires_in") int expires_in, @Field("refresh_token") String refresh_token, @Field("uid") String uid, @Field("site") String site);
 }
