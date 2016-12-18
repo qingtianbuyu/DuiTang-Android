@@ -2,9 +2,10 @@ package com.duitang.entity;
 
 import com.blankj.utilcode.utils.TimeUtils;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Trend {
+public class Trend implements Serializable{
 
     /**
      * id : 68265345

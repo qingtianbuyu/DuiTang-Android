@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.duitang.R;
+import com.duitang.base.AppConst;
 import com.duitang.base.BaseActivity;
 import com.duitang.base.ObjectList;
 import com.duitang.entity.Blog;
@@ -98,7 +99,10 @@ public class FollowTrendActivity extends BaseActivity {
 
                 @Override
                 public void onItemBlogClick(Trend trend, Blog blog) {
-
+                    Intent intent = new Intent(FollowTrendActivity.this, BlogDetailActivity.class);
+                    intent.putExtra(AppConst.BlogDetailActivityConst.KEY_TREND, trend);
+                    intent.putExtra(AppConst.BlogDetailActivityConst.KEY_POSITION, trend.getBlogs().indexOf(blog));
+                    startActivity(intent);
                 }
             });
         } else {

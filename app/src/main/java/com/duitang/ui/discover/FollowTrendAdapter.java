@@ -46,7 +46,6 @@ public class FollowTrendAdapter extends RecyclerView.Adapter<FollowTrendAdapter.
         return LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
     }
 
-
     @Override
     public BaseTrendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int verticalSpacing = SizeUtils.dp2px(parent.getContext(), 10);
@@ -123,7 +122,7 @@ public class FollowTrendAdapter extends RecyclerView.Adapter<FollowTrendAdapter.
         return trendList == null ? 0 : trendList.size();
     }
 
-    public static class BaseTrendViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class BaseTrendViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.iv_avatar)
         ImageView ivAvatar;
         @BindView(R.id.tv_name)

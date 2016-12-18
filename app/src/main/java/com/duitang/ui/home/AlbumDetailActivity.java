@@ -70,7 +70,7 @@ public class AlbumDetailActivity extends BaseActivity implements OnRefreshListen
     }
 
     public void initData() {
-        albumId =  getIntent().getStringExtra("albumId");
+        albumId = getIntent().getStringExtra("albumId");
         HomeHttp.listAlbumDetail(albumId, new RetrofitUtil.RequestCallBack<Album>() {
             @Override
             public void success(Album data) {

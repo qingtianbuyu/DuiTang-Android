@@ -23,4 +23,11 @@ public class AppConst {
         int ItemTypeHeader = 0;
         int ItemTypeContent = 1;
     }
+
+    public interface BlogDetailActivityConst {
+        String KEY_TREND = "TREND";
+        String KEY_POSITION = "POSITION";
+        String KEY_BLOG = "BLOG";
+    }
+
 }

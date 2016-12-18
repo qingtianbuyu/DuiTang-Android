@@ -1,12 +1,14 @@
 package com.duitang.entity;
 
+import java.io.Serializable;
+
 /**
  * Title:
  * description:
  * author: yking
  * created on: 2016/12/5 下午10:39
  */
-public class Photo {
+public class Photo implements Serializable{
 
     /**
      * width : 500

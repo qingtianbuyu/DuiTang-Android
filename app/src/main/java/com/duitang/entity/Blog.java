@@ -1,6 +1,8 @@
 package com.duitang.entity;
 
-public class Blog {
+import java.io.Serializable;
+
+public class Blog implements Serializable{
     private int id;
     private Photo photo;
 

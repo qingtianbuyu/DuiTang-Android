@@ -1,5 +1,6 @@
 package com.duitang.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * author: yking
  * created on: 2016/12/5 下午8:33
  */
-public class User {
+public class User implements Serializable{
 
     /**
      * id : 3326121
