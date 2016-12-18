@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
-import com.blankj.utilcode.utils.SizeUtils;
 import com.duitang.R;
 import com.duitang.base.BaseActivity;
 import com.duitang.base.ObjectList;
@@ -21,7 +20,6 @@ import com.duitang.entity.AlbumData;
 import com.duitang.entity.Topic;
 import com.duitang.http.HomeHttp;
 import com.duitang.util.RetrofitUtil;
-import com.duitang.view.refresh.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +47,7 @@ public class AlbumDetailActivity extends BaseActivity implements OnRefreshListen
     AlbumDetailAdapter adapter;
     List<AlbumData> albumDatas = new ArrayList<>();
 
-    Topic topic;
+    String albumId;
     Album album;
     int userId;
     int start;
@@ -72,12 +70,11 @@ public class AlbumDetailActivity extends BaseActivity implements OnRefreshListen
     }
 
     public void initData() {
-        topic = (Topic) getIntent().getSerializableExtra("topic");
-        HomeHttp.listAlbumDetail(topic.getTargetId(), new RetrofitUtil.RequestCallBack<Album>() {
+        albumId =  getIntent().getStringExtra("albumId");
+        HomeHttp.listAlbumDetail(albumId, new RetrofitUtil.RequestCallBack<Album>() {
             @Override
             public void success(Album data) {
                 album = data;
-//                initAdapter();
                 userId = data.getUser().getId();
                 listAlbumList();
             }
@@ -90,7 +87,7 @@ public class AlbumDetailActivity extends BaseActivity implements OnRefreshListen
     }
 
     public void listAlbumList() {
-        HomeHttp.listAlbumList(topic.getTargetId(), userId, start, new RetrofitUtil.RequestCallBack<ObjectList<AlbumData>>() {
+        HomeHttp.listAlbumList(albumId, userId, start, new RetrofitUtil.RequestCallBack<ObjectList<AlbumData>>() {
 
             @Override
             public void success(ObjectList data) {

@@ -5,14 +5,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.duitang.R;
 import com.duitang.base.BaseActivity;
 import com.duitang.base.ObjectList;
+import com.duitang.entity.Blog;
 import com.duitang.entity.Trend;
 import com.duitang.http.DiscoverHttp;
+import com.duitang.ui.home.AlbumDetailActivity;
+import com.duitang.ui.home.ArticleDetailActivity;
 import com.duitang.util.RetrofitUtil;
 import com.duitang.view.refresh.ListViewDecoration;
 
@@ -76,11 +80,31 @@ public class FollowTrendActivity extends BaseActivity {
         if (adapter == null) {
             adapter = new FollowTrendAdapter(trendList);
             recycler.setAdapter(adapter);
+            adapter.setOnTrendItemClickListener(new FollowTrendAdapter.OnTrendItemClickListener() {
+                @Override
+                public void onItemClick(int layoutPosition) {
+                    int itemViewType = adapter.getItemViewType(layoutPosition);
+                    Class targetClz = null;
+                    if (itemViewType == FollowTrendAdapter.KEY_ARTICLE) {
+                        targetClz = ArticleDetailActivity.class;
+                    } else if (itemViewType == FollowTrendAdapter.KEY_ALBUM) {
+                        targetClz = AlbumDetailActivity.class;
+                    }
+                    Trend trend = trendList.get(layoutPosition);
+                    Intent intent = new Intent(FollowTrendActivity.this, targetClz);
+                    intent.putExtra("albumId", trend.getId() + "");
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onItemBlogClick(Trend trend, Blog blog) {
+
+                }
+            });
         } else {
             adapter.notifyDataSetChanged();
         }
     }
-
 
     public void restoreRefresh() {
 

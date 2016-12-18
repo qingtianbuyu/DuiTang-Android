@@ -54,10 +54,11 @@ public class ArticleDetailActivity extends BaseActivity {
     }
 
     public void initData() {
-        Topic topic = (Topic) getIntent().getSerializableExtra("topic");
-        String target = topic.getTarget();
-        int beginIndex = target.lastIndexOf("=");
-        String topicId = target.substring(beginIndex + 1, target.length());
+//        Topic topic = (Topic) getIntent().getSerializableExtra("topic");
+//        String target = topic.getTarget();
+//        int beginIndex = target.lastIndexOf("=");
+//        String topicId = target.substring(beginIndex + 1, target.length());
+        String topicId = getIntent().getStringExtra("albumId");
         HomeHttp.loadArticle(topicId, new RetrofitUtil.RequestCallBack<AlbumData>() {
             @Override
             public void success(AlbumData data) {

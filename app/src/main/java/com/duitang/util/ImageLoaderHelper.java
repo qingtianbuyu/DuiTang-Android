@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.duitang.R;
 
 /**
  * Title:
@@ -33,7 +34,10 @@ public class ImageLoaderHelper {
     }
 
     public static void loadImageView(String path, ImageView mImageView) {
-        Glide.with(mImageView.getContext()).load(path).into(mImageView);
+        Glide.with(mImageView.getContext())
+                .load(path)
+                .placeholder(R.mipmap.placeholder)
+                .into(mImageView);
     }
 
     public static void loadImageViewWithCircle(String path, ImageView mImageView) {

@@ -14,9 +14,11 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.ScreenUtils;
 import com.blankj.utilcode.utils.SizeUtils;
 import com.duitang.R;
+import com.duitang.entity.Blog;
 import com.duitang.entity.Trend;
 import com.duitang.entity.User;
 import com.duitang.util.ImageLoaderHelper;
+import com.duitang.view.refresh.OnRecyclerItemClickListener;
 import com.duitang.view.refresh.SpaceItemDecoration;
 
 import java.util.List;
@@ -25,15 +27,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FollowTrendAdapter extends RecyclerView.Adapter<FollowTrendAdapter.BaseTrendViewHolder> {
-    private static final int KEY_ARTICLE = 1001;
-    private static final int KEY_ALBUM = 1002;
+    public static final int KEY_ARTICLE = 1001;
+    public static final int KEY_ALBUM = 1002;
 
     List<Trend> trendList;
+    SpaceItemDecoration decor;
+    OnTrendItemClickListener onTrendItemClickListener;
 
     public FollowTrendAdapter(List<Trend> trendList) {
         this.trendList = trendList;
     }
 
+    public void setOnTrendItemClickListener(OnTrendItemClickListener onTrendItemClickListener) {
+        this.onTrendItemClickListener = onTrendItemClickListener;
+    }
 
     private View inflate(int resId, ViewGroup parent) {
         return LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
@@ -42,17 +49,23 @@ public class FollowTrendAdapter extends RecyclerView.Adapter<FollowTrendAdapter.
 
     @Override
     public BaseTrendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View inflate = inflate(R.layout.item_recycler_follow_trends, parent);
+        int verticalSpacing = SizeUtils.dp2px(parent.getContext(), 10);
+        decor = new SpaceItemDecoration(verticalSpacing);
+        BaseTrendViewHolder baseTrendViewHolder = null;
         if (viewType == KEY_ARTICLE) {
-            return new ArticleViewHolder(inflate(R.layout.item_recycler_article, parent));
+            baseTrendViewHolder = new ArticleViewHolder(inflate(R.layout.item_recycler_article, parent), onTrendItemClickListener, trendList);
         } else if (viewType == KEY_ALBUM) {
-            return new AlbumViewHolder(inflate(R.layout.item_recycler_trend_album, parent));
+            final AlbumViewHolder albumViewHolder = new AlbumViewHolder(inflate(R.layout.item_recycler_trend_album, parent), onTrendItemClickListener, trendList);
+            baseTrendViewHolder = albumViewHolder;
+        } else {
+            View inflate = inflate(R.layout.item_recycler_follow_trends, parent);
+            baseTrendViewHolder = new BaseTrendViewHolder(inflate, onTrendItemClickListener, trendList);
         }
-        return new BaseTrendViewHolder(inflate);
+        return baseTrendViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(BaseTrendViewHolder holder, int position) {
+    public void onBindViewHolder(final BaseTrendViewHolder holder, int position) {
         int layoutPosition = holder.getLayoutPosition();
         Trend trend = trendList.get(layoutPosition);
         holder.tvAddTime.setText(trend.getAdd_datetime_tsStr());
@@ -65,6 +78,8 @@ public class FollowTrendAdapter extends RecyclerView.Adapter<FollowTrendAdapter.
             title = "<font color='#666666' size='15'>更新了专辑&nbsp;</font><font color='#333333' size='15'>" + trend.getTitle() + "</font>";
             AlbumViewHolder albumViewHolder = (AlbumViewHolder) holder;
             Context context = albumViewHolder.recycler.getContext();
+
+            // TODO: 2016/12/18 总觉得设置LayoutParams太屌丝
             int screenWidth = ScreenUtils.getScreenWidth(context);
             if (trend.getBlogs().size() == 2 || trend.getBlogs().size() == 4) {
                 albumViewHolder.recycler.setLayoutManager(new GridLayoutManager(context, 2));
@@ -77,9 +92,13 @@ public class FollowTrendAdapter extends RecyclerView.Adapter<FollowTrendAdapter.
                 albumViewHolder.recycler.setLayoutManager(new GridLayoutManager(context, 3));
             }
 
-            int verticalSpacing = SizeUtils.dp2px(context, 10);
-            albumViewHolder.recycler.addItemDecoration(new SpaceItemDecoration(verticalSpacing));
+            int tag = (albumViewHolder.recycler.getTag() != null) ? (int) albumViewHolder.recycler.getTag() : 0;
+            if (tag == 0) {
+                albumViewHolder.recycler.addItemDecoration(decor);
+                albumViewHolder.recycler.setTag(trend.getId());
+            }
             albumViewHolder.recycler.setAdapter(new FollowTrendAlbumAdapter(trend.getBlogs()));
+
         } else if (itemViewType == KEY_ARTICLE) {
             title = "<font color='#666666' size='15'>发布了文章 &nbsp;</font><font color='#333333' size='15'>" + trend.getTitle() + "</font>";
             ArticleViewHolder articleViewHolder = (ArticleViewHolder) holder;
@@ -96,7 +115,6 @@ public class FollowTrendAdapter extends RecyclerView.Adapter<FollowTrendAdapter.
         } else if (TextUtils.equals(trend.getType(), "ALBUM")) {
             return KEY_ALBUM;
         }
-
         return super.getItemViewType(position);
     }
 
@@ -105,7 +123,7 @@ public class FollowTrendAdapter extends RecyclerView.Adapter<FollowTrendAdapter.
         return trendList == null ? 0 : trendList.size();
     }
 
-    public static class BaseTrendViewHolder extends RecyclerView.ViewHolder {
+    public static class BaseTrendViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.iv_avatar)
         ImageView ivAvatar;
         @BindView(R.id.tv_name)
@@ -114,10 +132,23 @@ public class FollowTrendAdapter extends RecyclerView.Adapter<FollowTrendAdapter.
         TextView tvAddTime;
         @BindView(R.id.tv_title)
         TextView tvTitle;
+        public OnTrendItemClickListener onTrendItemClickListener;
+        List<Trend> trendList;
 
-        public BaseTrendViewHolder(View view) {
+        public BaseTrendViewHolder(View view, OnTrendItemClickListener onTrendItemClickListener, List<Trend> trendList) {
             super(view);
             ButterKnife.bind(this, view);
+            view.setOnClickListener(this);
+            this.onTrendItemClickListener = onTrendItemClickListener;
+            this.trendList = trendList;
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (onTrendItemClickListener != null) {
+                int layoutPosition = getLayoutPosition();
+                onTrendItemClickListener.onItemClick(layoutPosition);
+            }
         }
     }
 
@@ -125,8 +156,8 @@ public class FollowTrendAdapter extends RecyclerView.Adapter<FollowTrendAdapter.
         @BindView(R.id.iv_article)
         ImageView ivArticle;
 
-        ArticleViewHolder(View view) {
-            super(view);
+        ArticleViewHolder(View view, OnTrendItemClickListener onTrendItemClickListener, List<Trend> trendList) {
+            super(view, onTrendItemClickListener, trendList);
             ButterKnife.bind(this, view);
         }
     }
@@ -135,9 +166,26 @@ public class FollowTrendAdapter extends RecyclerView.Adapter<FollowTrendAdapter.
         @BindView(R.id.recycler)
         RecyclerView recycler;
 
-        AlbumViewHolder(View view) {
-            super(view);
+        AlbumViewHolder(View view, final OnTrendItemClickListener onTrendItemClickListener, final List<Trend> trendList) {
+            super(view, onTrendItemClickListener, trendList);
             ButterKnife.bind(this, view);
+            recycler.addOnItemTouchListener(new OnRecyclerItemClickListener(recycler) {
+                @Override
+                public void onItemClick(RecyclerView.ViewHolder vh) {
+                    super.onItemClick(vh);
+                    if (onTrendItemClickListener == null) return;
+                    int layoutPosition = getLayoutPosition();
+                    Trend trend = trendList.get(layoutPosition);
+                    onTrendItemClickListener.onItemBlogClick(trend, trend.getBlogs().get(vh.getLayoutPosition()));
+                }
+            });
         }
     }
+
+    public interface OnTrendItemClickListener {
+        void onItemClick(int layoutPosition);
+
+        void onItemBlogClick(Trend trend, Blog blog);
+    }
+
 }
