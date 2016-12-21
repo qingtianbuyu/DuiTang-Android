@@ -1,16 +1,27 @@
 package com.duitang.ui.discover;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.duitang.R;
 import com.duitang.base.AppConst;
+import com.duitang.base.ObjectList;
 import com.duitang.entity.Blog;
+import com.duitang.entity.BlogDetail;
+import com.duitang.http.DiscoverHttp;
+import com.duitang.util.RetrofitUtil;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -22,38 +33,66 @@ import com.duitang.entity.Blog;
 public class BlogDetailFragment extends Fragment {
     Blog blog;
     boolean isloaded;
+    @BindView(R.id.recycler)
+    RecyclerView recyclerView;
 
-    public static BlogDetailFragment newInstance(Blog blog) {
+    public static BlogDetailFragment newInstance() {
         Bundle args = new Bundle();
         BlogDetailFragment fragment = new BlogDetailFragment();
-        args.putSerializable(AppConst.BlogDetailActivityConst.KEY_BLOG, blog);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle arguments = getArguments();
-        blog = (Blog) arguments.getSerializable(AppConst.BlogDetailActivityConst.KEY_BLOG);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return new TextView(container.getContext());
+        return inflater.inflate(R.layout.frag_blog, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (blog != null) {
+            Log.e("TAG", blog.getId() + "--recycler--" + recyclerView);
+        }
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
     }
 
     public void loadData() {
-        // TODO: 2016/12/18 加载数据
-        if (!isloaded) {
+        if (!isloaded && blog != null) {
             loadBlogData();
             isloaded = true;
         }
     }
 
     public void loadBlogData() {
-        Log.d("TAG", "---" + blog.getId());
+        DiscoverHttp.loadBlogList(blog.getId(), new RetrofitUtil.RequestCallBack<BlogDetail>() {
+            @Override
+            public void success(BlogDetail data) {
+                //刷新页面
+                initAdapter(data);
+            }
+
+            @Override
+            public void failure(String failure) {
+
+            }
+        });
+    }
+
+    public void initAdapter(BlogDetail detail) {
+        BlogRelatedAlbumAdapter adapter = new BlogRelatedAlbumAdapter(detail);
+        recyclerView.setAdapter(adapter);
     }
 
 }

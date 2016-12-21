@@ -2,6 +2,7 @@ package com.duitang.base;
 
 import com.duitang.entity.Album;
 import com.duitang.entity.AlbumData;
+import com.duitang.entity.BlogDetail;
 import com.duitang.entity.ContentGroup;
 import com.duitang.entity.LoginResultEntity;
 import com.duitang.entity.Topic;
@@ -51,4 +52,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("login/by_auth_info/")
     Call<BaseResult<LoginResultEntity>> loginByAuthInfo(@Field("access_token") String access_token, @Field("expires_in") int expires_in, @Field("refresh_token") String refresh_token, @Field("uid") String uid, @Field("site") String site);
+
+    @GET("blog/detail/")
+    Call<BaseResult<BlogDetail>> loadBlogList(@Query("top_like_users_count") int top_like_users_count, @Query("blog_id") int blog_id,@Query("include_fields") String includeFields);
 }

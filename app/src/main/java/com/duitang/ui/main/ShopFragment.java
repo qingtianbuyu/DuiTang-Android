@@ -5,8 +5,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -22,7 +24,7 @@ import butterknife.ButterKnife;
 
 /**
  * Title:
- * description: 数据接口SSL加密无法获取
+ * description:
  * author: yking
  * created on: 2016/12/4 上午10:04
  */
@@ -67,6 +69,12 @@ public class ShopFragment extends BaseFragment {
         settings.setSupportZoom(true);
         settings.setBlockNetworkImage(false);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        wb.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return true;
+            }
+        });
         wb.loadUrl("http://m.duitang.com/");
     }
 

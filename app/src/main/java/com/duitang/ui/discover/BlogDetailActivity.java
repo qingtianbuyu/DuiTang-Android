@@ -42,7 +42,7 @@ public class BlogDetailActivity extends BaseActivity {
 
     List<Blog> blogs;
     int position;
-    private List<BlogDetailFragment> blogDetailFragmentList;
+    public List<BlogDetailFragment> blogDetailFragmentList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,48 +62,26 @@ public class BlogDetailActivity extends BaseActivity {
     public void setupPager() {
         blogDetailFragmentList = new ArrayList<>();
         for (Blog blog : blogs) {
-            blogDetailFragmentList.add(BlogDetailFragment.newInstance(blog));
+            blogDetailFragmentList.add(BlogDetailFragment.newInstance());
         }
+        vpFragment.setOffscreenPageLimit(blogs.size());
         vpFragment.setAdapter(new BlogPagerAdapter(getSupportFragmentManager(), blogDetailFragmentList));
-
-        vpFragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                BlogDetailFragment blogDetailFragment = blogDetailFragmentList.get(position);
-                blogDetailFragment.loadData();
-            }
-
+        vpFragment.clearOnPageChangeListeners();
+        vpFragment.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
+                super.onPageSelected(position);
+                switchPageWithLoadData(position);
             }
         });
         vpFragment.setCurrentItem(position);
+        switchPageWithLoadData(position);
     }
 
-
-    static class BlogPagerAdapter extends FragmentPagerAdapter {
-        List<BlogDetailFragment> blogDetailFragments;
-
-        public BlogPagerAdapter(FragmentManager fm, List<BlogDetailFragment> blogDetailFragments) {
-            super(fm);
-            this.blogDetailFragments = blogDetailFragments;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return blogDetailFragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return blogDetailFragments == null ? 0 : blogDetailFragments.size();
-        }
+    private void switchPageWithLoadData(int position) {
+        BlogDetailFragment blogDetailFragment = blogDetailFragmentList.get(position);
+        blogDetailFragment.setBlog(blogs.get(position));
+        blogDetailFragment.loadData();
     }
 
 

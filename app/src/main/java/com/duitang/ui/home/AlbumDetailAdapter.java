@@ -1,6 +1,7 @@
 package com.duitang.ui.home;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -74,24 +75,24 @@ public class AlbumDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    private void calculateLayoutParams(ContentViewHolder cholder, int layoutPosition, AlbumData albumData) {
+    private void calculateLayoutParams(final ContentViewHolder cholder, int layoutPosition, AlbumData albumData) {
         // get width height in px
         int width = albumData.getPhoto().getWidth();
         int height = albumData.getPhoto().getHeight();
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) cholder.ivPhoto.getLayoutParams();
         Context context = cholder.ivPhoto.getContext();
         int screenWidth = ScreenUtils.getScreenWidth(context);
-        int margin = SizeUtils.dp2px(context, 12);
+        final int margin = SizeUtils.dp2px(context, 12);
         float itemWith = (screenWidth - 3 * margin) * 0.5f;
         float itemHeight = height * (itemWith / width);
         layoutParams.width = (int) itemWith;
         layoutParams.height = (int) itemHeight;
-        LinearLayout.LayoutParams containerLp = (LinearLayout.LayoutParams) cholder.llContainer.getLayoutParams();
+        final LinearLayout.LayoutParams containerLp = (LinearLayout.LayoutParams) cholder.llContainer.getLayoutParams();
         containerLp.width = (int) itemWith;
         if (layoutPosition % 2 == 0) {
             containerLp.leftMargin = margin;
         } else {
-            containerLp.leftMargin = margin / 2;
+            containerLp.leftMargin = 0;
         }
         containerLp.topMargin = margin;
     }

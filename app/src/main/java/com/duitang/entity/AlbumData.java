@@ -48,6 +48,7 @@ public class AlbumData {
     private String extra_type;
     private boolean is_certify_user;
     private String url;
+    private List<Album> related_albums;
 
     public Album getAlbum() {
         return album;
@@ -195,5 +196,13 @@ public class AlbumData {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public List<Album> getRelated_albums() {
+        return related_albums;
+    }
+
+    public void setRelated_albums(List<Album> related_albums) {
+        this.related_albums = related_albums;
     }
 }
