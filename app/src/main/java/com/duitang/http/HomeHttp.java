@@ -6,6 +6,7 @@ import com.duitang.base.BaseResult;
 import com.duitang.base.ObjectList;
 import com.duitang.entity.Album;
 import com.duitang.entity.AlbumData;
+import com.duitang.entity.Favorite;
 import com.duitang.entity.Topic;
 import com.duitang.util.RetrofitUtil;
 
@@ -37,9 +38,21 @@ public class HomeHttp {
         RetrofitUtil.request(call, callBack);
     }
 
+    public static void albumListByUser(int userId, int start, RetrofitUtil.RequestCallBack<ObjectList<Album>> callBack) {
+        ApiService service = RetrofitUtil.createService();
+        Call<BaseResult<ObjectList<Album>>> call = service.albumListByUser(userId, start);
+        RetrofitUtil.request(call, callBack);
+    }
+
     public static void loadArticle(String articleId, RetrofitUtil.RequestCallBack<AlbumData> callBack) {
         ApiService service = RetrofitUtil.createService();
         Call<BaseResult<AlbumData>> call = service.loadArticle(articleId);
+        RetrofitUtil.request(call, callBack);
+    }
+
+    public static void favoriteList(int userId,int start, RetrofitUtil.RequestCallBack<ObjectList<Favorite>> callBack) {
+        ApiService service = RetrofitUtil.createService();
+        Call<BaseResult<ObjectList<Favorite>>> call = service.favoriteList(userId,start);
         RetrofitUtil.request(call, callBack);
     }
 }

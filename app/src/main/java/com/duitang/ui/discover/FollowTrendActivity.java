@@ -104,6 +104,14 @@ public class FollowTrendActivity extends BaseActivity {
                     intent.putExtra(AppConst.BlogDetailActivityConst.KEY_POSITION, trend.getBlogs().indexOf(blog));
                     startActivity(intent);
                 }
+
+                @Override
+                public void onItemHeaderClick(int layoutPosition) {
+                    Trend trend = trendList.get(layoutPosition);
+                    Intent intent = new Intent(FollowTrendActivity.this, UserInfoActivity.class);
+                    intent.putExtra(AppConst.BlogDetailActivityConst.KEY_TREND, trend);
+                    startActivity(intent);
+                }
             });
         } else {
             adapter.notifyDataSetChanged();

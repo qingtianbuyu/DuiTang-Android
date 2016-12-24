@@ -47,7 +47,13 @@ public class DiscoverHttp {
     public static void loadBlogList(int blog_id, RetrofitUtil.RequestCallBack<BlogDetail> callBack) {
         ApiService service = RetrofitUtil.createService();
         String includeFields = "ags,related_albums,related_albums.covers,root_album,share_links_3,extra_html,top_comments,top_like_users";
-        Call<BaseResult<BlogDetail>> call = service.loadBlogList(8,blog_id, includeFields);
+        Call<BaseResult<BlogDetail>> call = service.loadBlogList(8, blog_id, includeFields);
+        RetrofitUtil.request(call, callBack);
+    }
+
+    public static void momentListByUser(int id, int start, RetrofitUtil.RequestCallBack<ObjectList<Trend>> callBack) {
+        ApiService service = RetrofitUtil.createService();
+        Call<BaseResult<ObjectList<Trend>>> call = service.momentListByUser(id, start);
         RetrofitUtil.request(call, callBack);
     }
 

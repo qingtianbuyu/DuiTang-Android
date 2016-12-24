@@ -138,14 +138,19 @@ public class FollowTrendAdapter extends RecyclerView.Adapter<FollowTrendAdapter.
             super(view);
             ButterKnife.bind(this, view);
             view.setOnClickListener(this);
+            view.findViewById(R.id.rl_header_container).setOnClickListener(this);
             this.onTrendItemClickListener = onTrendItemClickListener;
             this.trendList = trendList;
         }
 
         @Override
         public void onClick(View view) {
-            if (onTrendItemClickListener != null) {
-                int layoutPosition = getLayoutPosition();
+            if (onTrendItemClickListener == null) return;
+            int viewId = view.getId();
+            int layoutPosition = getLayoutPosition();
+            if (viewId == R.id.rl_header_container) {
+                onTrendItemClickListener.onItemHeaderClick(layoutPosition);
+            } else {
                 onTrendItemClickListener.onItemClick(layoutPosition);
             }
         }
@@ -185,6 +190,8 @@ public class FollowTrendAdapter extends RecyclerView.Adapter<FollowTrendAdapter.
         void onItemClick(int layoutPosition);
 
         void onItemBlogClick(Trend trend, Blog blog);
+
+        void onItemHeaderClick(int layoutPosition);
     }
 
 }

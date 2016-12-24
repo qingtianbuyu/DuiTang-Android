@@ -5,6 +5,7 @@ import com.duitang.base.AppConst;
 import com.duitang.base.BaseResult;
 import com.duitang.entity.Album;
 import com.duitang.entity.LoginResultEntity;
+import com.duitang.entity.User;
 import com.duitang.util.RetrofitUtil;
 
 import retrofit2.Call;
@@ -20,5 +21,12 @@ public class AccountHttp {
         ApiService service = RetrofitUtil.createService();
         Call<BaseResult<LoginResultEntity>> call = service.loginByAuthInfo(access_token, expires_in, refresh_token, uid, site);
         RetrofitUtil.request(call, callBack);
+    }
+
+    public static void loadPeopleProfile(int id, RetrofitUtil.RequestCallBack<User> requestCallBack) {
+        ApiService service = RetrofitUtil.createService();
+        String include_fields = "relationship,bind_status,interests,identity,city,citycode,gender,birthday,recommend_info,club_count,is_life_artist";
+        Call<BaseResult<User>> call = service.loadUserProfile(id, include_fields);
+        RetrofitUtil.request(call, requestCallBack);
     }
 }

@@ -174,4 +174,18 @@ public class Album {
         this.tags = tags;
     }
 
+    public String getCountAndFacCount() {
+        return count + "张图片 ~" + favorite_count + "人收藏";
+    }
+
+    public boolean isAlbumZX() {
+        if (tags == null) return false;
+        for (Tags tag : tags) {
+            if (tag.getType() == 2) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

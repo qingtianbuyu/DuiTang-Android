@@ -9,7 +9,7 @@ import java.util.List;
  * author: yking
  * created on: 2016/12/5 下午8:33
  */
-public class User implements Serializable{
+public class User implements Serializable {
 
     /**
      * id : 3326121
@@ -76,6 +76,8 @@ public class User implements Serializable{
     private int last_active_date;
     private List<String> identity;
     private List<String> good_at;
+    private List<String> interests;
+    private String background_img_url;
 
     public int getId() {
         return id;
@@ -323,5 +325,25 @@ public class User implements Serializable{
 
     public void setGood_at(List<String> good_at) {
         this.good_at = good_at;
+    }
+
+    public boolean is_certify_user() {
+        return is_certify_user;
+    }
+
+    public List<String> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(List<String> interests) {
+        this.interests = interests;
+    }
+
+    public String getBackground_img_url() {
+        return background_img_url;
+    }
+
+    public void setBackground_img_url(String background_img_url) {
+        this.background_img_url = background_img_url;
     }
 }
