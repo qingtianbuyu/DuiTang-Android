@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.duitang.R;
 import com.duitang.entity.ContentGroup;
 import com.duitang.entity.ContentGroupItem;
+import com.duitang.ui.discover.ClubActivity;
 import com.duitang.ui.discover.FollowTrendActivity;
 import com.duitang.util.ImageLoaderHelper;
 
@@ -202,11 +203,16 @@ public class DiscoverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(view);
             ButterKnife.bind(this, view);
             llContainerItemLeft.setOnClickListener(this);
+            llContainerItemRight.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            view.getContext().startActivity(new Intent(view.getContext(), FollowTrendActivity.class));
+            if (view.getId() == R.id.ll_container_item_left) {
+                view.getContext().startActivity(new Intent(view.getContext(), FollowTrendActivity.class));
+            } else {
+                view.getContext().startActivity(new Intent(view.getContext(), ClubActivity.class));
+            }
         }
     }
 

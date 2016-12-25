@@ -91,6 +91,7 @@ public class UserAlbumFragment extends UserBaseFragment {
     @Override
     public void initListView(View view) {
         super.initListView(view);
+        recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new GridLayoutManager(getContext(), 2));
         swipeToLoadLayout.setRefreshEnabled(false);
     }

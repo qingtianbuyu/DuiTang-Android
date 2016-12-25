@@ -3,10 +3,12 @@ package com.duitang.base;
 import com.duitang.entity.Album;
 import com.duitang.entity.AlbumData;
 import com.duitang.entity.BlogDetail;
+import com.duitang.entity.ColumnData;
 import com.duitang.entity.ContentGroup;
 import com.duitang.entity.Favorite;
 import com.duitang.entity.LoginResultEntity;
 import com.duitang.entity.Topic;
+import com.duitang.entity.TopicData;
 import com.duitang.entity.Trend;
 import com.duitang.entity.User;
 
@@ -67,5 +69,11 @@ public interface ApiService {
     Call<BaseResult<ObjectList<Album>>> albumListByUser(@Query("user_id") int id, @Query("start") int start);
 
     @GET("favorite/list/")
-    Call<BaseResult<ObjectList<Favorite>>> favoriteList(@Query("user_id") int id, @Query("start") int start);;
+    Call<BaseResult<ObjectList<Favorite>>> favoriteList(@Query("user_id") int id, @Query("start") int start);
+
+    @GET("topic/list/by_tags/")
+    Call<BaseResult<ObjectList<TopicData>>> topicListByTags(@Query("start") int start, @Query("tags") String tags, @Query("limit") int limit);
+
+    @GET("column/detail/by_heap_name/")
+    Call<BaseResult<ObjectList<ColumnData>>> columnDetailByHeapName(@Query("start") int start, @Query("heap_name")String heapName, @Query("limit")int limit);
 }

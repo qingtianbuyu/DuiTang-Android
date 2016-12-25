@@ -89,6 +89,7 @@ public class UserFavoriteFragment extends UserBaseFragment {
     @Override
     public void initListView(View view) {
         super.initListView(view);
+        recycler.setHasFixedSize(true);
         recycler.addItemDecoration(new ListViewDecoration(getContext()));
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         swipeToLoadLayout.setRefreshEnabled(false);

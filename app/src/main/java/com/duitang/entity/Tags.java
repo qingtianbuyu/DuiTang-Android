@@ -20,6 +20,7 @@ public class Tags {
     private String target;
     private int type;
     private int tag_id;
+    private int relation_type;
 
     public int getId() {
         return id;
@@ -59,5 +60,13 @@ public class Tags {
 
     public void setTag_id(int tag_id) {
         this.tag_id = tag_id;
+    }
+
+    public int getRelation_type() {
+        return relation_type;
+    }
+
+    public void setRelation_type(int relation_type) {
+        this.relation_type = relation_type;
     }
 }
