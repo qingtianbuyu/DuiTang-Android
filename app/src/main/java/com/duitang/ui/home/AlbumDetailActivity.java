@@ -17,7 +17,6 @@ import com.duitang.base.BaseActivity;
 import com.duitang.base.ObjectList;
 import com.duitang.entity.Album;
 import com.duitang.entity.AlbumData;
-import com.duitang.entity.Topic;
 import com.duitang.http.HomeHttp;
 import com.duitang.util.RetrofitUtil;
 
@@ -55,7 +54,7 @@ public class AlbumDetailActivity extends BaseActivity implements OnRefreshListen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_topic_detail);
+        setContentView(R.layout.activity_album_detail);
         ButterKnife.bind(this);
         initView();
         initData();

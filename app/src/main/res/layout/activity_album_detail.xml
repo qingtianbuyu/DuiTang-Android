@@ -2,11 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grayColor"
     android:orientation="vertical">
 
     <include layout="@layout/layout_title" />
 
-    <include layout="@layout/swipe_refresh_recycler" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@drawable/divider_recycler" />
 
+    <include layout="@layout/swipe_refresh_recycler" />
 
 </LinearLayout>
