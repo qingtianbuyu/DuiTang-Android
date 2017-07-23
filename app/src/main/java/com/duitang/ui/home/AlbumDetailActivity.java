@@ -19,6 +19,7 @@ import com.duitang.entity.Album;
 import com.duitang.entity.AlbumData;
 import com.duitang.http.HomeHttp;
 import com.duitang.util.RetrofitUtil;
+import com.duitang.view.refresh.SpacesItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,7 @@ public class AlbumDetailActivity extends BaseActivity implements OnRefreshListen
         swipeToLoadLayout.setOnRefreshListener(this);
         imgbtnRight.setImageResource(R.mipmap.nav_more);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new SpacesItemDecoration(10));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 

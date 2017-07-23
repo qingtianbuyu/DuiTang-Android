@@ -1,10 +1,7 @@
-package com.duitang.ui.main;
+package com.duitang.ui.shop;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -13,22 +10,17 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.duitang.R;
-import com.duitang.base.BaseFragment;
-import com.duitang.entity.AlbumData;
-import com.duitang.entity.Topic;
-import com.duitang.http.HomeHttp;
-import com.duitang.util.RetrofitUtil;
+import com.duitang.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Title:
- * description:
- * author: yking
- * created on: 2016/12/4 上午10:04
+ * Created by yking on 2017/7/23.
  */
-public class ShopFragment extends BaseFragment {
+
+public class ShopHireActivity extends BaseActivity{
+
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.imgbtn_left)
@@ -38,23 +30,11 @@ public class ShopFragment extends BaseFragment {
     @BindView(R.id.wb)
     WebView wb;
 
-    public static ShopFragment newInstance() {
-        Bundle args = new Bundle();
-        ShopFragment fragment = new ShopFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.frag_shop, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_shop_hire);
+        ButterKnife.bind(this);
         initView();
     }
 

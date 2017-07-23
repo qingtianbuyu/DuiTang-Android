@@ -6,6 +6,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +66,11 @@ public class UserInfoActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(trend.getTitle());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                finish();
+            }
+        });
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
         setupViewPager(viewPager);
@@ -75,22 +81,6 @@ public class UserInfoActivity extends BaseActivity {
 
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.htab_collapse_toolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
-
-//        ImageView header = (ImageView) findViewById(R.id.header);
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-//                R.drawable.header);
-//
-//        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-//            @SuppressWarnings("ResourceType")
-//            @Override
-//            public void onGenerated(Palette palette) {
-//
-//                int vibrantColor = palette.getVibrantColor(R.color.primary_500);
-//                int vibrantDarkColor = palette.getDarkVibrantColor(R.color.primary_700);
-//                collapsingToolbarLayout.setContentScrimColor(vibrantColor);
-//                collapsingToolbarLayout.setStatusBarScrimColor(vibrantDarkColor);
-//            }
-//        });
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
